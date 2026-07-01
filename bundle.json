@@ -23,7 +23,9 @@
         "rom": "",
         "ram": "",
         "deps": {
-            "components": [],
+            "components": [
+                "bounds_checking_function"
+            ],
             "third_party": []
         },
         "build": {
