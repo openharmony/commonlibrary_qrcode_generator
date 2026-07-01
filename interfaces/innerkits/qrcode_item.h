@@ -16,9 +16,9 @@
 #ifndef __QRCODE_ITEM_H__
 #define __QRCODE_ITEM_H__
 
-#include "interfaces/innerkits/qrcode_stream.h"
-#include "interfaces/innerkits/qrcode_inner.h"
-#include "interfaces/innerkits/qrcode_list.h"
+#include "qrcode_stream.h"
+#include "qrcode_inner.h"
+#include "qrcode_list.h"
 
 extern const int8_t QRCODE_ALPHA_BET_TABLE[128];
 

@@ -16,8 +16,8 @@
 #ifndef __QRCODE_INNER_H__
 #define __QRCODE_INNER_H__
 
-#include "interfaces/kits/qrcode_generator.h"
-#include "interfaces/innerkits/qrcode_list.h"
+#include "qrcode_generator.h"
+#include "qrcode_list.h"
 
 typedef enum {
     QRCODE_MODE_NUL = -1,

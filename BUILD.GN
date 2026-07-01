@@ -44,7 +44,7 @@ qrcodegen_include_dirs = [
 ]
 
 if (defined(ohos_lite)) {
-  lite_library("qrcodegen") {
+  lite_library("qrcodegenerator") {
     if (ohos_kernel_type == "liteos_m") {
       target_type = "static_library"
     } else {
@@ -65,7 +65,7 @@ if (defined(ohos_lite)) {
     public_configs = [ ":libqrcodegen_config" ]
   }
 } else {
-  static_library("qrcodegen") {
+  static_library("qrcodegenerator") {
     sources = qrcodegen_sources
     include_dirs = qrcodegen_include_dirs
 

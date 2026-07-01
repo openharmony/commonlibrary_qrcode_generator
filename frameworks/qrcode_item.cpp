@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-#include "interfaces/innerkits/qrcode_item.h"
-#include "interfaces/innerkits/qrcode_generator.h"
-#include "interfaces/innerkits/qrcode_stream.h"
-#include "interfaces/innerkits/qrcode_version.h"
-#include "interfaces/innerkits/qrcode_list.h"
+#include "qrcode_item.h"
+#include "qrcode_generator.h"
+#include "qrcode_stream.h"
+#include "qrcode_version.h"
+#include "qrcode_list.h"
 #include "securec.h"
 
 #define THIRD_ENCODE 3

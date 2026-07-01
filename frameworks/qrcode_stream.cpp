@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-#include "interfaces/innerkits/qrcode_stream.h"
-#include "interfaces/innerkits/qrcode_generator.h"
-#include "interfaces/innerkits/qrcode_item.h"
+#include "qrcode_stream.h"
+#include "qrcode_generator.h"
+#include "qrcode_item.h"
 #include "securec.h"
 
 QrcodeStream *QrcodeStreamNew(void)

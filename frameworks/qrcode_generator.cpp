@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-#include "interfaces/kits/qrcode_generator.h"
+#include "qrcode_generator.h"
 #include <cstdlib>
-#include "interfaces/innerkits/qrcode_version.h"
-#include "interfaces/innerkits/qrcode_stream.h"
-#include "interfaces/innerkits/qrcode_item.h"
-#include "interfaces/innerkits/qrcode_rscode.h"
-#include "interfaces/innerkits/qrcode_inner.h"
-#include "interfaces/innerkits/qrcode_mask.h"
+#include "qrcode_version.h"
+#include "qrcode_stream.h"
+#include "qrcode_item.h"
+#include "qrcode_rscode.h"
+#include "qrcode_inner.h"
+#include "qrcode_mask.h"
 #include "securec.h"
 
 #define MASK_SUM_NUM 8

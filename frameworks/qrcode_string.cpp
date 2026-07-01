@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-#include "interfaces/innerkits/qrcode_generator.h"
-#include "interfaces/innerkits/qrcode_item.h"
-#include "interfaces/innerkits/qrcode_version.h"
-#include "interfaces/innerkits/qrcode_inner.h"
+#include "qrcode_generator.h"
+#include "qrcode_item.h"
+#include "qrcode_version.h"
+#include "qrcode_inner.h"
 
 typedef struct {
     const char *p;

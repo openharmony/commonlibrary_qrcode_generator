@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#include "interfaces/innerkits/qrcode_version.h"
-#include "interfaces/innerkits/qrcode_item.h"
+#include "qrcode_version.h"
+#include "qrcode_item.h"
 #include "securec.h"
 
 #define QR_NUM_IS_FIVE 5

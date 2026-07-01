@@ -16,8 +16,8 @@
 #ifndef __QRCODE_VERSION_H__
 #define __QRCODE_VERSION_H__
 
-#include "interfaces/kits/qrcode_generator.h"
-#include "interfaces/innerkits/qrcode_inner.h"
+#include "qrcode_generator.h"
+#include "qrcode_inner.h"
 
 #define QRCODE_VERSION_WIDTH_MAX 177
 
