@@ -1,0 +1,49 @@
+{
+    "name": "@ohos/qrcode",
+    "description": "Generate qrcode",
+    "description_cn": "二维码生成组件",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "foundation/arkui/qrcode"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "qrcode",
+        "subsystem": "arkui",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "mini",
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//foundation/arkui/qrcode:qrcodegen",
+                    "header": {
+                        "header_base": "//foundation/arkui/qrcode/interfaces/kits/",
+                        "header_files": [
+                            "qrcode_generator.h"
+                        ]
+                    }
+                }
+            ],
+            "test": [
+                {
+                    "name": "//foundation/arkui/qrcode:test:qrcode_generator_test"
+                }
+            ]
+        }
+    }
+}
