@@ -1,7 +1,7 @@
 {
     "name": "@ohos/qrcode",
     "description": "Generate qrcode",
-    "description_cn": "二维码生成组件",
+    "description_cn": "二位码生成器",
     "version": "3.1",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
@@ -11,7 +11,7 @@
     "dirs": {},
     "scripts": {},
     "component": {
-        "name": "qrcode",
+        "name": "qrcodegen",
         "subsystem": "arkui",
         "syscap": [],
         "features": [],

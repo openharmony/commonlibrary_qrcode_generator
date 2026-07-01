@@ -29,13 +29,13 @@ config("qrcodegen_config") {
 }
 
 qrcodegen_sources = [
-  "frameworks/qrcode_generator.c",
-  "frameworks/qrcode_item.c",
-  "frameworks/qrcode_mask.c",
-  "frameworks/qrcode_string.c",
-  "frameworks/qrcode_stream.c",
-  "frameworks/qrcode_version.c",
-  "frameworks/qrcode_rscode.c",
+  "frameworks/qrcode_generator.cpp",
+  "frameworks/qrcode_item.cpp",
+  "frameworks/qrcode_mask.cpp",
+  "frameworks/qrcode_string.cpp",
+  "frameworks/qrcode_stream.cpp",
+  "frameworks/qrcode_version.cpp",
+  "frameworks/qrcode_rscode.cpp",
 ]
 
 qrcodegen_include_dirs = [
