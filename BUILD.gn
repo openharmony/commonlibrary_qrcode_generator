@@ -47,14 +47,10 @@ if (defined(ohos_lite)) {
   lite_library("qrcodegenerator") {
     if (ohos_kernel_type == "liteos_m") {
       target_type = "static_library"
-      deps = [
-        "//third_party/bounds_checking_function:libsec_static",
-      ]
+      external_deps = [ "bounds_checking_function:libsec_static" ]
     } else {
       target_type = "shared_library"
-      deps = [
-        "//third_party/bounds_checking_function:libsec_shared",
-      ]
+      external_deps = [ "bounds_checking_function:libsec_shared" ]
     }
 
     sources = qrcodegen_sources
@@ -72,6 +68,7 @@ if (defined(ohos_lite)) {
   }
 } else {
   static_library("qrcodegenerator") {
+    external_deps = [ "bounds_checking_function:libsec_static" ]
     sources = qrcodegen_sources
     include_dirs = qrcodegen_include_dirs
 
