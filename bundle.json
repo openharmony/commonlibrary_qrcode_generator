@@ -40,6 +40,9 @@
                         ]
                     }
                 }
+            ],
+            "test": [
+                "//foundation/arkui/qrcode/test/unittest/common:unittest"
             ]
         }
     }
