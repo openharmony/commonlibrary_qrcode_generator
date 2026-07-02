@@ -4,6 +4,7 @@
 -   [Architecture](#section2222222222222)
 -   [Directory Structure](#section3333333333333)
 -   [Constraints](#section4444444444444)
+-   [Build](#section5555555555555_b)
 -   [Usage](#section5555555555555)
     -   [Available APIs](#section6666666666666)
     -   [Usage Guidelines](#section7777777777777)
@@ -70,6 +71,19 @@ The QRCode Generator provides QRCode generation capability for the OpenHarmony s
 - The input character stream must not exceed the maximum data capacity of Version 40 at H-level error correction (approximately 1852 bytes). QR codes cannot be generated if this length is exceeded.
 - Only square QR code output is supported; other shapes (such as rectangle, circle, etc.) are not supported.
 - Byte mode uses UTF-8 encoding by default.
+
+## Build<a name="section5555555555555_b"></a>
+
+Use the following commands to compile for different target platforms:
+
+**Compile qrcode component for 32-bit ARM system**
+
+```bash
+./build.sh --product-name {product_name} --ccache --build-target qrcodegenerator
+```
+
+> **Note:**
+> `{product_name}` is the currently supported platform name, for example `rk3568`.
 
 ## Usage<a name="section5555555555555"></a>
 

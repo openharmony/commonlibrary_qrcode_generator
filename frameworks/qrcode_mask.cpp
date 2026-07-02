@@ -291,6 +291,9 @@ static int32_t QrcodeMaskGetScore(int32_t width, uint8_t *data)
 
 uint8_t *QrcodeMaskFindMask(int32_t width, uint8_t *data)
 {
+    if (data == nullptr) {
+ 	    return nullptr;
+ 	}
     int32_t total = width * width;
     uint8_t *curMask = (uint8_t *)QrcodeMalloc(total);
     if (curMask == nullptr) {

@@ -32,7 +32,7 @@
             "sub_component": [],
             "inner_kits": [
                 {
-                    "name": "//foundation/arkui/qrcode:qrcodegenerator",
+                    "name": "//foundation/arkui/qrcode:qrcodegenerator_static",
                     "header": {
                         "header_base": "//foundation/arkui/qrcode/interfaces/kits/",
                         "header_files": [

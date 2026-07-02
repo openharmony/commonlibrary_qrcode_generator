@@ -199,6 +199,20 @@ DONE:
 
 void ReedSolomonCodeFree(ReedSolomonCode *rs)
 {
+    if (rs == nullptr) {
+ 	    return;
+ 	}
+ 	if (g_rsList == rs) {
+ 	    g_rsList = rs->next;
+ 	} else {
+ 	    ReedSolomonCode *current = g_rsList;
+ 	    while (current != nullptr && current->next != rs) {
+ 	        current = current->next;
+ 	    }
+ 	    if (current != nullptr) {
+ 	        current->next = rs->next;
+ 	    }
+ 	}
     QrcodeFree(rs->alphaTo);
     QrcodeFree(rs->indexOf);
     QrcodeFree(rs->genpoly);

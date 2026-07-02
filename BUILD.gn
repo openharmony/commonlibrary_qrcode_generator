@@ -67,7 +67,7 @@ if (defined(ohos_lite)) {
     public_configs = [ ":libqrcodegen_config" ]
   }
 } else {
-  static_library("qrcodegenerator") {
+  static_library("qrcodegenerator_static") {
     external_deps = [ "bounds_checking_function:libsec_static" ]
     sources = qrcodegen_sources
     include_dirs = qrcodegen_include_dirs

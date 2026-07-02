@@ -262,6 +262,9 @@ static void QrcodeDirectorNextPosInit(QrcodeDirector *director, uint8_t **p, int
 
 static void UpdatePositionBasedOnDirection(QrcodeDirector *director, int32_t *x, int32_t *y)
 {
+    if ((director == nullptr) || (x == nullptr) || (y == nullptr)) {
+ 	    return;
+ 	}
     if (director->rightToLeft == 1) {
         (*x)--;
         director->rightToLeft = 0;
@@ -428,7 +431,7 @@ EXIT:
 
 QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)
 {
-    if (text == nullptr) {
+    if ((text == nullptr) || (text[0] == '\0')) {
         return nullptr;
     }
 

@@ -13,124 +13,128 @@
 
 import("//build/test.gni")
 
-module_output_path = "qrcodegen/qrcodegen"
+if (os_level != "mini") {
+  module_output_path = "qrcodegenerator/qrcodegenerator"
 
-config("module_private_config") {
-  visibility = [ ":*" ]
+  config("module_private_config") {
+    visibility = [ ":*" ]
 
-  include_dirs = [
-    "../../../interfaces/innerkits",
-    "../../../interfaces/kits",
-    "../../../",
+    include_dirs = [
+      "../../../interfaces/innerkits",
+      "../../../interfaces/kits",
+      "../../../",
+    ]
+
+    cflags = [ "--coverage" ]
+    cflags_cc = [ "--coverage" ]
+    ldflags = [ "--coverage" ]
+  }
+
+  common_sources = [
+    "../../../frameworks/qrcode_generator.cpp",
+    "../../../frameworks/qrcode_item.cpp",
+    "../../../frameworks/qrcode_mask.cpp",
+    "../../../frameworks/qrcode_rscode.cpp",
+    "../../../frameworks/qrcode_stream.cpp",
+    "../../../frameworks/qrcode_string.cpp",
+    "../../../frameworks/qrcode_version.cpp",
   ]
 
-  cflags = [ "--coverage" ]
-  cflags_cc = [ "--coverage" ]
-  ldflags = [ "--coverage" ]
-}
+  ohos_unittest("QrcodeGeneratorTest") {
+    module_out_path = module_output_path
 
-common_sources = [
-  "../../../frameworks/qrcode_generator.cpp",
-  "../../../frameworks/qrcode_item.cpp",
-  "../../../frameworks/qrcode_mask.cpp",
-  "../../../frameworks/qrcode_rscode.cpp",
-  "../../../frameworks/qrcode_stream.cpp",
-  "../../../frameworks/qrcode_string.cpp",
-  "../../../frameworks/qrcode_version.cpp",
-]
+    sources = common_sources
+    sources += [ "qrcode_generator_test.cpp" ]
 
-ohos_unittest("QrcodeGeneratorTest") {
-  module_out_path = module_output_path
+    configs = [ ":module_private_config" ]
 
-  sources = common_sources
-  sources += [ "qrcode_generator_test.cpp" ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "googletest:gtest_main",
+    ]
+  }
 
-  configs = [ ":module_private_config" ]
+  ohos_unittest("QrcodeVersionTest") {
+    module_out_path = module_output_path
 
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "googletest:gtest_main",
-  ]
-}
+    sources = common_sources
+    sources += [ "qrcode_version_test.cpp" ]
 
-ohos_unittest("QrcodeVersionTest") {
-  module_out_path = module_output_path
+    configs = [ ":module_private_config" ]
 
-  sources = common_sources
-  sources += [ "qrcode_version_test.cpp" ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "googletest:gtest_main",
+    ]
+  }
 
-  configs = [ ":module_private_config" ]
+  ohos_unittest("QrcodeItemTest") {
+    module_out_path = module_output_path
 
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "googletest:gtest_main",
-  ]
-}
+    sources = common_sources
+    sources += [ "qrcode_item_test.cpp" ]
 
-ohos_unittest("QrcodeItemTest") {
-  module_out_path = module_output_path
+    configs = [ ":module_private_config" ]
 
-  sources = common_sources
-  sources += [ "qrcode_item_test.cpp" ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "googletest:gtest_main",
+    ]
+  }
 
-  configs = [ ":module_private_config" ]
+  ohos_unittest("QrcodeStreamTest") {
+    module_out_path = module_output_path
 
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "googletest:gtest_main",
-  ]
-}
+    sources = common_sources
+    sources += [ "qrcode_stream_test.cpp" ]
 
-ohos_unittest("QrcodeStreamTest") {
-  module_out_path = module_output_path
+    configs = [ ":module_private_config" ]
 
-  sources = common_sources
-  sources += [ "qrcode_stream_test.cpp" ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "googletest:gtest_main",
+    ]
+  }
 
-  configs = [ ":module_private_config" ]
+  ohos_unittest("QrcodeMaskTest") {
+    module_out_path = module_output_path
 
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "googletest:gtest_main",
-  ]
-}
+    sources = common_sources
+    sources += [ "qrcode_mask_test.cpp" ]
 
-ohos_unittest("QrcodeMaskTest") {
-  module_out_path = module_output_path
+    configs = [ ":module_private_config" ]
 
-  sources = common_sources
-  sources += [ "qrcode_mask_test.cpp" ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "googletest:gtest_main",
+    ]
+  }
 
-  configs = [ ":module_private_config" ]
+  ohos_unittest("QrcodeRscodeTest") {
+    module_out_path = module_output_path
 
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "googletest:gtest_main",
-  ]
-}
+    sources = common_sources
+    sources += [ "qrcode_rscode_test.cpp" ]
 
-ohos_unittest("QrcodeRscodeTest") {
-  module_out_path = module_output_path
+    configs = [ ":module_private_config" ]
 
-  sources = common_sources
-  sources += [ "qrcode_rscode_test.cpp" ]
-
-  configs = [ ":module_private_config" ]
-
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "googletest:gtest_main",
-  ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "googletest:gtest_main",
+    ]
+  }
 }
 
 group("unittest") {
   testonly = true
-  deps = [
-    ":QrcodeGeneratorTest",
-    ":QrcodeVersionTest",
-    ":QrcodeItemTest",
-    ":QrcodeStreamTest",
-    ":QrcodeMaskTest",
-    ":QrcodeRscodeTest",
-  ]
+  if (os_level != "mini") {
+    deps = [
+      ":QrcodeGeneratorTest",
+      ":QrcodeVersionTest",
+      ":QrcodeItemTest",
+      ":QrcodeStreamTest",
+      ":QrcodeMaskTest",
+      ":QrcodeRscodeTest",
+    ]
+  }
 }
