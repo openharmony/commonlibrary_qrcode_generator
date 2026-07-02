@@ -263,8 +263,8 @@ static void QrcodeDirectorNextPosInit(QrcodeDirector *director, uint8_t **p, int
 static void UpdatePositionBasedOnDirection(QrcodeDirector *director, int32_t *x, int32_t *y)
 {
     if ((director == nullptr) || (x == nullptr) || (y == nullptr)) {
- 	    return;
- 	}
+        return;
+    }
     if (director->rightToLeft == 1) {
         (*x)--;
         director->rightToLeft = 0;
