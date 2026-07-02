@@ -72,7 +72,7 @@ if (defined(ohos_lite)) {
     sources = qrcodegen_sources
     include_dirs = qrcodegen_include_dirs
 
-    configs = [ ":qrcodegen_config" ]
+    configs += [ ":qrcodegen_config" ]
     public_configs = [ ":libqrcodegen_config" ]
   }
 }
