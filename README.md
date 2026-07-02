@@ -7,9 +7,6 @@
 -   [Usage](#section5555555555555)
     -   [Available APIs](#section6666666666666)
     -   [Usage Guidelines](#section7777777777777)
-
--   [Repositories Involved](#section8888888888888)
-
 -   [Third-Party Dependencies](#section9999999999999)
 
 ## Introduction<a name="section1111111111111"></a>
