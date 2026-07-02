@@ -54,8 +54,15 @@ The QRCode Generator provides QRCode generation capability for the OpenHarmony s
 │       ├── qrcode_rscode.cpp             # RS error correction encoding
 │       ├── qrcode_mask.cpp               # Mask processing
 │       └── qrcode_item.cpp               # Data item processing
-└── test/                                 # Test directory
-    └── qrcode_generator_test.cpp         # Unit test code
+├── test/unittest/common/                 # Unit test code
+│       ├── qrcode_generator_test.cpp     # Generator test
+│       ├── qrcode_version_test.cpp       # Version test
+│       ├── qrcode_stream_test.cpp        # Stream test
+│       ├── qrcode_item_test.cpp          # Item test
+│       ├── qrcode_mask_test.cpp          # Mask test
+│       └── qrcode_rscode_test.cpp        # RS code test
+└── patches/                              # Patch files
+    └── patches.json                      # Patch configuration
 ```
 
 ## Constraints<a name="section4444444444444"></a>
@@ -63,6 +70,8 @@ The QRCode Generator provides QRCode generation capability for the OpenHarmony s
 - The QRCode Generator follows the ISO/IEC 18004:2015 standard.
 - Supported versions range from Version 1 to Version 40, with a maximum size of 177×177 pixels.
 - Input text length is limited by version and error correction level; actual usable length is calculated at runtime.
+- The input character stream must not exceed the maximum data capacity of Version 40 at H-level error correction (approximately 1852 bytes). QR codes cannot be generated if this length is exceeded.
+- Only square QR code output is supported; other shapes (such as rectangle, circle, etc.) are not supported.
 - Byte mode uses UTF-8 encoding by default.
 
 ## Usage<a name="section5555555555555"></a>
@@ -95,6 +104,44 @@ The QRCode Generator provides public APIs for system components or applications 
 </tr>
 </tbody>
 </table>
+
+#### Error Correction Levels<a name="section6666666666666_ecc"></a>
+
+<a name="table2222222222222"></a>
+<table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>Level</p>
+</th>
+<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.2"><p id="p2222222222223"><a name="p2222222222223"></a><a name="p2222222222223"></a>Enum Value</p>
+</th>
+<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.3"><p id="p3333333333334"><a name="p3333333333334"></a><a name="p3333333333334"></a>Error Correction Capability</p>
+</th>
+<th class="cellrowborder" valign="top" width="40%" id="mcps1.1.3.2.4"><p id="p4444444444445"><a name="p4444444444445"></a><a name="p4444444444445"></a>Use Cases</p>
+</th>
+</tr>
+</thead>
+<tbody><tr id="row6666666666666"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p7777777777778"><a name="p7777777777778"></a><a name="p7777777777778"></a>M (Medium)</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.2 "><p id="p8888888888889"><a name="p8888888888889"></a><a name="p8888888888889"></a>QRCODE_ECC_MEDIUM</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p9999999999999"><a name="p9999999999999"></a><a name="p9999999999999"></a>Approx. 15%</p>
+</td>
+<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p1010101010101"><a name="p1010101010101"></a><a name="p1010101010101"></a>General scenarios, balancing capacity and error correction</p>
+</td>
+</tr>
+<tr id="row7777777777777"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p1111111111113"><a name="p1111111111113"></a><a name="p1111111111113"></a>H (High)</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.2 "><p id="p2222222222224"><a name="p2222222222224"></a><a name="p2222222222224"></a>QRCODE_ECC_HIGH</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p3333333333335"><a name="p3333333333335"></a><a name="p3333333333335"></a>Approx. 30%</p>
+</td>
+<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p4444444444446"><a name="p4444444444446"></a><a name="p4444444444446"></a>High reliability requirements (industrial, medical, etc.)</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+**Notes:**
+- Higher error correction levels allow recovery of more damaged data, but reduce available data capacity.
+- Error correction is implemented using Reed-Solomon (RS) codes.
 
 ### Usage Guidelines<a name="section7777777777777"></a>
 

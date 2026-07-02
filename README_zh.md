@@ -53,8 +53,15 @@
 │       ├── qrcode_rscode.cpp             # RS纠错编码
 │       ├── qrcode_mask.cpp               # 掩码处理
 │       └── qrcode_item.cpp               # 数据项处理
-└── test/                                 # 测试目录
-    └── qrcode_generator_test.cpp         # 单元测试代码
+├── test/unittest/common/                 # 单元测试代码
+│       ├── qrcode_generator_test.cpp     # 生成器测试
+│       ├── qrcode_version_test.cpp       # 版本测试
+│       ├── qrcode_stream_test.cpp        # 数据流测试
+│       ├── qrcode_item_test.cpp          # 数据项测试
+│       ├── qrcode_mask_test.cpp          # 掩码测试
+│       └── qrcode_rscode_test.cpp        # RS纠错测试
+└── patches/                              # 补丁文件
+    └── patches.json                      # 补丁配置
 ```
 
 ## 约束<a name="section4444444444444"></a>
@@ -62,6 +69,8 @@
 - 二维码生成器遵循ISO/IEC 18004:2015标准。
 - 支持的版本范围为Version 1到Version 40，最大尺寸为177×177像素。
 - 输入文本长度受版本和纠错等级限制，实际可用长度由运行时计算得出。
+- 输入字符码流不得超过Version 40最大版本在H级别纠错下的最大数据容量（约1852字节），超出此长度将无法生成二维码。
+- 仅支持正方形二维码输出，不支持其他形状（如矩形、圆形等）。
 - 使用字节模式时，默认使用UTF-8编码。
 
 ## 说明<a name="section5555555555555"></a>
@@ -94,6 +103,45 @@
 </tr>
 </tbody>
 </table>
+
+#### 纠错等级说明<a name="section6666666666666_ecc"></a>
+
+<a name="table2222222222222"></a>
+<table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>等级</p>
+</th>
+<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.2"><p id="p2222222222223"><a name="p2222222222223"></a><a name="p2222222222223"></a>枚举值</p>
+</th>
+<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.3"><p id="p3333333333334"><a name="p3333333333334"></a><a name="p3333333333334"></a>纠错能力</p>
+</th>
+<th class="cellrowborder" valign="top" width="40%" id="mcps1.1.3.2.4"><p id="p4444444444445"><a name="p4444444444445"></a><a name="p4444444444445"></a>适用场景</p>
+</th>
+</tr>
+</thead>
+<tbody><tr id="row6666666666666"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p7777777777778"><a name="p7777777777778"></a><a name="p7777777777778"></a>M（中等）</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.2 "><p id="p8888888888889"><a name="p8888888888889"></a><a name="p8888888888889"></a>QRCODE_ECC_MEDIUM</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p9999999999999"><a name="p9999999999999"></a><a name="p9999999999999"></a>约15%</p>
+</td>
+<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p1010101010101"><a name="p1010101010101"></a><a name="p1010101010101"></a>通用场景，兼顾容量与纠错</p>
+</td>
+</tr>
+<tr id="row7777777777777"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p1111111111113"><a name="p1111111111113"></a><a name="p1111111111113"></a>H（高级）</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.2 "><p id="p2222222222224"><a name="p2222222222224"></a><a name="p2222222222224"></a>QRCODE_ECC_HIGH</p>
+</td>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p3333333333335"><a name="p3333333333335"></a><a name="p3333333333335"></a>约30%</p>
+</td>
+<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p4444444444446"><a name="p4444444444446"></a><a name="p4444444444446"></a>高可靠性需求场景（工业、医疗等）</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+**说明：**
+- 纠错等级越高，可恢复的损坏比例越大，但可用数据容量相应减少。
+- 纠错算法采用 Reed-Solomon（RS）码实现。
+
 
 ### 使用说明<a name="section7777777777777"></a>
 
