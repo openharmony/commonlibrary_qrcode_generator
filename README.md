@@ -169,4 +169,3 @@ QrcodeMemInitHooks(&hooks);
 - [third_party_bounds_checking_function](https://gitcode.com/openharmony/third_party_bounds_checking_function)
 - [arkui_ui_lite](https://gitcode.com/openharmony/arkui_ui_lite)
 - [arkui_ace_engine](https://gitcode.com/openharmony/arkui_ace_engine)
-- **arkui_qrcodegen**
