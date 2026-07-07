@@ -1,6 +1,6 @@
-# 二维码生成器<a name="ZH-CN_TOPIC_0000000000000001">
+# 二维码生成器
 
-## 简介<a name="section1111111111111"></a>
+## 简介
 
 二维码生成器为OpenHarmony系统提供二维码生成能力。二维码是一种经得起市场考验的被广泛使用的编码技术，它具有信息容量大、可靠性高、保密防伪性强的优点。二维码生成器遵循[**ISO/IEC 18004:2015标准**](https://www.iso.org/obp/ui/es/#iso:std:iso-iec:18004:ed-3:v1:en)实现，支持Version 1到Version 40的二维码生成，并提供了灵活的错误纠正等级选择。
 
@@ -9,9 +9,9 @@
 -   **内存管理：** 提供自定义内存分配钩子，允许开发者注入自己的内存管理函数，便于在嵌入式设备中进行内存优化。
 -   **形态支持：** 支持standard、mini、small三种形态。其中standard形态使用场景为QRCode控件，mini形态使用场景为UIQrcode控件，small形态暂无控件使用。
 
-## 系统架构图<a name="section2222222222222"></a>
+## 系统架构图
 
-**图 1**  二维码生成器架构图<a name="fig1111111111111"></a>
+**图 1**  二维码生成器架构图
 
 ![](figures/zh-cn_qrcode_generator.png "二维码生成器架构图")
 
@@ -20,7 +20,7 @@
 -   **数据编码：** 对输入字符码流信息进行编码，包括版本选择、数据分段、字节序列化、纠错码编码、掩码选择模块。
 
 
-## 目录<a name="section3333333333333"></a>
+## 目录
 
 ```
 /foundation/arkui/qrcode
@@ -52,14 +52,14 @@
     └── patches.json                      # 补丁配置
 ```
 
-## 约束<a name="section4444444444444"></a>
+## 约束
 
 - 输入文本长度受版本和纠错等级限制，实际可用长度由运行时计算得出。例如：在H级别纠错下，输入字符码不得超过Version 40的最大数据容量（约1852字节），超出此长度将无法生成二维码。
 - 输入字符码流后，二维码生成器会自动选择最小能包含数据的Version进行编码，Version为40时最大尺寸为177×177像素（px）。
 - 仅支持正方形二维码输出，不支持其他形状（如矩形、圆形等）。
 - 使用字节模式时，默认使用UTF-8编码。
 
-## 编译构建<a name="section5555555555555_b"></a>
+## 编译构建
 
 根据不同的目标平台，使用以下命令进行编译：
 
@@ -72,13 +72,12 @@
 > **说明：**
 > `{product_name}` 为当前支持的平台名称，例如 `rk3568`。
 
-## 说明<a name="section5555555555555"></a>
+## 说明
 
 二维码生成器提供公共接口，供系统组件或应用调用以生成二维码。
 
-### 接口说明<a name="section6666666666666"></a>
+### 接口说明
 
-<a name="table1111111111111"></a>
 <table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>接口名</p>
 </th>
 <th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2222222222222"><a name="p2222222222222"></a><a name="p2222222222222"></a>说明</p>
@@ -103,9 +102,8 @@
 </tbody>
 </table>
 
-#### 纠错等级说明<a name="section6666666666666_ecc"></a>
+#### 纠错等级说明
 
-<a name="table2222222222222"></a>
 <table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>等级</p>
 </th>
 <th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.2"><p id="p2222222222223"><a name="p2222222222223"></a><a name="p2222222222223"></a>枚举值</p>
@@ -142,7 +140,7 @@
 - 纠错算法采用 Reed-Solomon（RS）码实现。
 
 
-### 使用说明<a name="section7777777777777"></a>
+### 使用说明
 
 调用二维码生成器接口，将文本编码为二维码图像：
 
@@ -166,7 +164,9 @@ QrcodeMemHooks hooks = {
 QrcodeMemInitHooks(&hooks);
 ```
 
-## 第三方依赖<a name="section9999999999999"></a>
+## 相关仓
 
-本模块依赖于平台基础安全函数库（[**bounds_checking_function**](https://gitcode.com/openharmony/third_party_bounds_checking_function)），该模块提供安全字符串处理和内存操作函数。具体依赖关系请参见 BUILD.gn 文件中的 external_deps 配置。
-
+- [third_party_bounds_checking_function](https://gitcode.com/openharmony/third_party_bounds_checking_function)
+- [arkui_ui_lite](https://gitcode.com/openharmony/arkui_ui_lite)
+- [arkui_ace_engine](https://gitcode.com/openharmony/arkui_ace_engine)
+- **arkui_qrcodegen**

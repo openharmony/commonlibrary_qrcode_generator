@@ -1,6 +1,6 @@
-# QR Code Generator<a name="ZH-CN_TOPIC_0000000000000001">
+# QR Code Generator
 
-## Introduction<a name="section1111111111111"></a>
+## Introduction
 
 The QR Code Generator provides QR code generation capability for the OpenHarmony system. QR code is a widely-used encoding technology that has stood the test of market verification. It offers high information capacity, reliability, and strong confidentiality and anti-counterfeiting features. The QR Code Generator follows the [**ISO/IEC 18004:2015 standard**](https://www.iso.org/obp/ui/es/#iso:std:iso-iec:18004:ed-3:v1:en), supporting QR Code generation from Version 1 to Version 40, with flexible error correction level options.
 
@@ -9,9 +9,9 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
 -   **Memory Management:** Provides custom memory allocation hooks, allowing developers to inject their own memory management functions for memory optimization on embedded devices.
 -   **Form Support:** Supports three forms: standard, mini, and small. The standard form is used for the QRCode control, the mini form is used for the UIQrcode control, and the small form is not currently used by any control.
 
-## System Architecture<a name="section2222222222222"></a>
+## System Architecture
 
-**Figure 1**  QR Code Generator Architecture<a name="fig1111111111111"></a>
+**Figure 1**  QR Code Generator Architecture
 
 ![](figures/qrcode_generator.png "QR Code Generator Architecture")
 
@@ -20,7 +20,7 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
 -   **Data Encoding:** Encodes input character stream information, including version selection, data segmentation, byte serialization, error correction code encoding, and mask selection modules.
 
 
-## Directory Structure<a name="section3333333333333"></a>
+## Directory Structure
 
 ```
 /foundation/arkui/qrcode
@@ -52,14 +52,14 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
     └── patches.json                      # Patch configuration
 ```
 
-## Constraints<a name="section4444444444444"></a>
+## Constraints
 
 - The input text length is limited by version and error correction level. The actual usable length is calculated at runtime. For example: With H-level error correction, the input character code must not exceed the maximum data capacity of Version 40 (approximately 1852 bytes). QR codes cannot be generated if this length is exceeded.
 - After inputting character code stream, the QR Code Generator automatically selects the minimum Version that can contain the data. When Version is 40, the maximum size is 177×177 pixels (px).
 - Only square QR code output is supported. Other shapes (such as rectangles, circles, etc.) are not supported.
 - When using Byte mode, UTF-8 encoding is used by default.
 
-## Building<a name="section5555555555555_b"></a>
+## Building
 
 Use the following command to build for different target platforms:
 
@@ -72,13 +72,12 @@ Use the following command to build for different target platforms:
 > **Note:**
 > `{product_name}` is the currently supported platform name, for example `rk3568`.
 
-## Description<a name="section5555555555555"></a>
+## Description
 
 The QR Code Generator provides public interfaces for system components or applications to generate QR codes.
 
-### Interface Description<a name="section6666666666666"></a>
+### Interface Description
 
-<a name="table1111111111111"></a>
 <table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>Interface Name</p>
 </th>
 <th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2222222222222"><a name="p2222222222222"></a><a name="p2222222222222"></a>Description</p>
@@ -103,9 +102,7 @@ The QR Code Generator provides public interfaces for system components or applic
 </tbody>
 </table>
 
-#### Error Correction Level Description<a name="section6666666666666_ecc"></a>
-
-<a name="table2222222222222"></a>
+#### Error Correction Level Description
 
 <table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>Level</p>
 </th>
@@ -143,7 +140,7 @@ The QR Code Generator provides public interfaces for system components or applic
 - The error correction algorithm is implemented using Reed-Solomon (RS) codes.
 
 
-### Usage<a name="section7777777777777"></a>
+### Usage
 
 Call the QR Code Generator interface to encode text into a QR code image:
 
@@ -167,6 +164,9 @@ QrcodeMemHooks hooks = {
 QrcodeMemInitHooks(&hooks);
 ```
 
-## Third-Party Dependencies<a name="section9999999999999"></a>
+## Repositories Involved
 
-This module depends on the platform foundation security function library ([**bounds_checking_function**](https://gitcode.com/openharmony/third_party_bounds_checking_function)), which provides secure string processing and memory operation functions. For specific dependency details, refer to the external_deps configuration in the BUILD.gn file.
+- [third_party_bounds_checking_function](https://gitcode.com/openharmony/third_party_bounds_checking_function)
+- [arkui_ui_lite](https://gitcode.com/openharmony/arkui_ui_lite)
+- [arkui_ace_engine](https://gitcode.com/openharmony/arkui_ace_engine)
+- **arkui_qrcodegen**
