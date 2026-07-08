@@ -17,7 +17,7 @@
 
 -   **对外接口层：** 提供二维码生成的内部API接口，包括图像编码和内存管理。
 
--   **数据编码：** 对输入字符码流信息进行编码，包括版本选择、数据分段、字节序列化、纠错码编码、掩码选择模块。
+-   **数据编码：** 对输入字符码流信息进行解析编码，包括字符串解析、版本选择、数据分段、组装编码、RS纠错编码、掩码选择模块。
 
 
 ## 目录
@@ -27,29 +27,29 @@
 ├── interfaces/kits/qrcode_generator.h    # 二维码生成器对外接口
 ├── interfaces/innerkits/                 # 二维码生成器内部头文件
 │       ├── qrcode_inner.h                # 内部数据结构定义
-│       ├── qrcode_version.h              # 版本管理
-│       ├── qrcode_stream.h               # 数据流处理
+│       ├── qrcode_version.h              # 版本选择
+│       ├── qrcode_stream.h               # 组装编码
 │       ├── qrcode_rscode.h               # RS纠错编码
-│       ├── qrcode_mask.h                 # 掩码处理
-│       ├── qrcode_item.h                 # 数据项处理
+│       ├── qrcode_mask.h                 # 掩码选择
+│       ├── qrcode_item.h                 # 数据分段
 │       └── qrcode_list.h                 # 链表操作
 ├── frameworks/                           # 二维码核心实现代码
-│       ├── qrcode_generator.cpp          # 生成器主入口
-│       ├── qrcode_version.cpp            # 版本处理
-│       ├── qrcode_string.cpp             # 字符串处理
-│       ├── qrcode_stream.cpp             # 数据流处理
+│       ├── qrcode_generator.cpp          # 二维码生成器主入口
+│       ├── qrcode_version.cpp            # 版本选择
+│       ├── qrcode_string.cpp             # 字符串解析
+│       ├── qrcode_stream.cpp             # 组装编码
 │       ├── qrcode_rscode.cpp             # RS纠错编码
-│       ├── qrcode_mask.cpp               # 掩码处理
-│       └── qrcode_item.cpp               # 数据项处理
+│       ├── qrcode_mask.cpp               # 掩码选择
+│       └── qrcode_item.cpp               # 数据分段
 ├── test/unittest/common/                 # 单元测试代码
-│       ├── qrcode_generator_test.cpp     # 生成器测试
-│       ├── qrcode_version_test.cpp       # 版本测试
-│       ├── qrcode_stream_test.cpp        # 数据流测试
-│       ├── qrcode_item_test.cpp          # 数据项测试
-│       ├── qrcode_mask_test.cpp          # 掩码测试
-│       └── qrcode_rscode_test.cpp        # RS纠错测试
-└── patches/                              # 补丁文件
-    └── patches.json                      # 补丁配置
+│       ├── qrcode_generator_test.cpp
+│       ├── qrcode_version_test.cpp
+│       ├── qrcode_stream_test.cpp
+│       ├── qrcode_item_test.cpp
+│       ├── qrcode_mask_test.cpp
+│       └── qrcode_rscode_test.cpp
+└── patches/
+    └── patches.json
 ```
 
 ## 约束
@@ -76,6 +76,31 @@
 
 二维码生成器提供公共接口，供系统组件或应用调用以生成二维码。
 
+### 数据结构说明
+
+#### QrcodeImage
+
+`QrcodeImage` 是二维码生成函数的返回结构，定义如下：
+
+```c
+typedef struct {
+    int32_t version;
+    uint32_t width;
+    uint8_t *data;
+} QrcodeImage;
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| version | int32_t | 实际使用的二维码版本，范围1~40（根据输入数据自动选择） |
+| width | uint32_t | 生成的二维码图像宽度，单位为像素（px） |
+| data | uint8_t* | 图像像素数据缓冲区的指针 |
+
+**注意事项：**
+- `data` 缓冲区大小等于 `width * width` 字节
+- 每个字节代表一个像素值（0表示白色，非零表示黑色）
+- `data` 分配的内存必须通过调用 `QrcodeImageFree()` 释放
+
 ### 接口说明
 
 <table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>接口名</p>
@@ -86,12 +111,12 @@
 </thead>
 <tbody><tr id="row2222222222222"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3333333333333"><a name="p3333333333333"></a><a name="p3333333333333"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>编码字符串为二维码图像</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>对字符串码流进行编码，输出二维码数据</p>
 </td>
 </tr>
 <tr id="row3333333333333"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5555555555555"><a name="p5555555555555"></a><a name="p5555555555555"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>释放二维码图像内存</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>释放二维码数据内存</p>
 </td>
 </tr>
 <tr id="row4444444444444"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7777777777777"><a name="p7777777777777"></a><a name="p7777777777777"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
@@ -101,7 +126,6 @@
 </tr>
 </tbody>
 </table>
-
 #### 纠错等级说明
 
 <table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>等级</p>
@@ -150,6 +174,7 @@ if (qrImage != NULL) {
     // 使用 qrImage->data 生成二维码图像
     // qrImage->width 为图像宽度
     // qrImage->version 为实际使用的二维码版本
+    // qrImage数据使用完成后需要主动释放
     QrcodeImageFree(qrImage);
 }
 ```

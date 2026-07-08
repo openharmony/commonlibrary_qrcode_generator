@@ -17,7 +17,7 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
 
 -   **External Interface Layer:** Provides internal API interfaces for QR code generation, including image encoding and memory management.
 
--   **Data Encoding:** Encodes input character stream information, including version selection, data segmentation, byte serialization, error correction code encoding, and mask selection modules.
+-   **Data Encoding:** Parses and encodes input character stream information, including String Parser, Version Selection, Data Segmentation, Code Assembly, RS Encoding, and Mask Pattern Selection modules.
 
 
 ## Directory Structure
@@ -27,29 +27,29 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
 ├── interfaces/kits/qrcode_generator.h    # QR Code Generator public interface
 ├── interfaces/innerkits/                 # QR Code Generator internal header files
 │       ├── qrcode_inner.h                # Internal data structure definition
-│       ├── qrcode_version.h              # Version management
-│       ├── qrcode_stream.h               # Data stream processing
-│       ├── qrcode_rscode.h               # RS error correction encoding
-│       ├── qrcode_mask.h                 # Mask processing
-│       ├── qrcode_item.h                 # Data item processing
+│       ├── qrcode_version.h              # Version Selection
+│       ├── qrcode_stream.h               # Code Assembly
+│       ├── qrcode_rscode.h               # RS Encoding
+│       ├── qrcode_mask.h                 # Mask Pattern Selection
+│       ├── qrcode_item.h                 # Data segmentation
 │       └── qrcode_list.h                 # Linked list operations
 ├── frameworks/                           # QR Code core implementation
 │       ├── qrcode_generator.cpp          # Generator main entry
-│       ├── qrcode_version.cpp            # Version processing
-│       ├── qrcode_string.cpp             # String processing
-│       ├── qrcode_stream.cpp             # Data stream processing
-│       ├── qrcode_rscode.cpp             # RS error correction encoding
-│       ├── qrcode_mask.cpp               # Mask processing
-│       └── qrcode_item.cpp               # Data item processing
+│       ├── qrcode_version.cpp            # Version Selection
+│       ├── qrcode_string.cpp             # String parsing
+│       ├── qrcode_stream.cpp             # Code Assembly
+│       ├── qrcode_rscode.cpp             # RS Encoding
+│       ├── qrcode_mask.cpp               # Mask Pattern Selection
+│       └── qrcode_item.cpp               # Data segmentation
 ├── test/unittest/common/                 # Unit test code
-│       ├── qrcode_generator_test.cpp     # Generator tests
-│       ├── qrcode_version_test.cpp       # Version tests
-│       ├── qrcode_stream_test.cpp        # Data stream tests
-│       ├── qrcode_item_test.cpp          # Data item tests
-│       ├── qrcode_mask_test.cpp          # Mask tests
-│       └── qrcode_rscode_test.cpp        # RS error correction tests
-└── patches/                              # Patch files
-    └── patches.json                      # Patch configuration
+│       ├── qrcode_generator_test.cpp
+│       ├── qrcode_version_test.cpp
+│       ├── qrcode_stream_test.cpp
+│       ├── qrcode_item_test.cpp
+│       ├── qrcode_mask_test.cpp
+│       └── qrcode_rscode_test.cpp
+└── patches/
+    └── patches.json
 ```
 
 ## Constraints
@@ -76,6 +76,32 @@ Use the following command to build for different target platforms:
 
 The QR Code Generator provides public interfaces for system components or applications to generate QR codes.
 
+### Data Structure Description
+
+#### QrcodeImage
+
+`QrcodeImage` is the output structure of QR code generation, defined as follows:
+
+```c
+typedef struct {
+    int32_t version;
+    uint32_t width;
+    uint8_t *data;
+} QrcodeImage;
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| version | int32_t | QR code version actually used，The value ranges from 1 to 40. (auto-selected based on input data) |
+| width | uint32_t | Width of the generated QR code image in pixels（px） |
+| data | uint8_t* | Pointer to the image pixel data buffer |
+
+**Notes:**
+
+- The `data` buffer size equals `width * width` bytes
+- Each byte represents a pixel value (0 for white, non-zero for black)
+- Memory allocated in `data` must be freed by calling `QrcodeImageFree()`
+
 ### Interface Description
 
 <table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>Interface Name</p>
@@ -86,12 +112,12 @@ The QR Code Generator provides public interfaces for system components or applic
 </thead>
 <tbody><tr id="row2222222222222"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3333333333333"><a name="p3333333333333"></a><a name="p3333333333333"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>Encodes a string into a QR code image</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>Encodes a string into QR code data</p>
 </td>
 </tr>
 <tr id="row3333333333333"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5555555555555"><a name="p5555555555555"></a><a name="p5555555555555"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>Frees QR code image memory</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>Frees QR code data memory</p>
 </td>
 </tr>
 <tr id="row4444444444444"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7777777777777"><a name="p7777777777777"></a><a name="p7777777777777"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
@@ -150,6 +176,7 @@ if (qrImage != NULL) {
     // Use qrImage->data to generate QR code image
     // qrImage->width is the image width
     // qrImage->version is the actual QR code version used
+    // qrImage data must be freed explicitly after use
     QrcodeImageFree(qrImage);
 }
 ```
