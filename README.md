@@ -66,7 +66,7 @@ Use the following command to build for different target platforms:
 **Build qrcode component for 32-bit ARM system**
 
 ```bash
-./build.sh --product-name {product_name} --ccache --build-target qrcodegenerator
+./build.sh --product-name {product_name} --ccache --build-target qrcodegen
 ```
 
 > **Note:**

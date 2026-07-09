@@ -14,7 +14,7 @@
 import("//build/test.gni")
 
 if (os_level != "mini") {
-  module_output_path = "qrcodegenerator/qrcodegenerator"
+  module_output_path = "qrcodegen/qrcodegen"
 
   config("module_private_config") {
     visibility = [ ":*" ]
