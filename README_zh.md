@@ -23,7 +23,7 @@
 ## 目录
 
 ```
-/foundation/arkui/qrcode
+/commonlibrary/qrcode_generator
 ├── interfaces/kits/qrcode_generator.h    # 二维码生成器对外接口
 ├── interfaces/innerkits/                 # 二维码生成器内部头文件
 │       ├── qrcode_inner.h                # 内部数据结构定义
@@ -66,7 +66,7 @@
 **编译32位ARM系统qrcode部件**
 
 ```bash
-./build.sh --product-name {product_name} --ccache --build-target qrcodegen
+./build.sh --product-name {product_name} --ccache --build-target qrcode_generator
 ```
 
 > **说明：**
