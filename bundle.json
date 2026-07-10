@@ -1,5 +1,5 @@
 {
-    "name": "@ohos/qrcodegenerator",
+    "name": "@ohos/qrcodegen",
     "description": "Generate qrcode",
     "description_cn": "二维码生成器",
     "version": "3.1",
@@ -11,7 +11,7 @@
     "dirs": {},
     "scripts": {},
     "component": {
-        "name": "qrcodegenerator",
+        "name": "qrcodegen",
         "subsystem": "arkui",
         "syscap": [],
         "features": [],
@@ -32,7 +32,7 @@
             "sub_component": [],
             "inner_kits": [
                 {
-                    "name": "//foundation/arkui/qrcodegen:qrcodegenerator_static",
+                    "name": "//foundation/arkui/qrcodegen:qrcodegen_static",
                     "header": {
                         "header_base": "//foundation/arkui/qrcodegen/interfaces/kits/",
                         "header_files": [

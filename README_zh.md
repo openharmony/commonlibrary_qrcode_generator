@@ -66,7 +66,7 @@
 **编译32位ARM系统qrcode部件**
 
 ```bash
-./build.sh --product-name {product_name} --ccache --build-target qrcodegenerator
+./build.sh --product-name {product_name} --ccache --build-target qrcodegen
 ```
 
 > **说明：**
