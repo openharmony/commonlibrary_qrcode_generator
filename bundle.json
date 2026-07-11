@@ -1,18 +1,18 @@
 {
-    "name": "@ohos/qrcodegenerator",
+    "name": "@ohos/qrcode_generator",
     "description": "Generate qrcode",
     "description_cn": "二维码生成器",
     "version": "3.1",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
     "segment": {
-        "destPath": "foundation/arkui/qrcodegen"
+        "destPath": "commonlibrary/qrcode_generator"
     },
     "dirs": {},
     "scripts": {},
     "component": {
-        "name": "qrcodegenerator",
-        "subsystem": "arkui",
+        "name": "qrcode_generator",
+        "subsystem": "commonlibrary",
         "syscap": [],
         "features": [],
         "adapted_system_type": [
@@ -32,9 +32,9 @@
             "sub_component": [],
             "inner_kits": [
                 {
-                    "name": "//foundation/arkui/qrcodegen:qrcodegenerator_static",
+                    "name": "//commonlibrary/qrcode_generator:qrcode_generator_static",
                     "header": {
-                        "header_base": "//foundation/arkui/qrcodegen/interfaces/kits/",
+                        "header_base": "//commonlibrary/qrcode_generator/interfaces/kits/",
                         "header_files": [
                             "qrcode_generator.h"
                         ]
@@ -42,7 +42,7 @@
                 }
             ],
             "test": [
-                "//foundation/arkui/qrcodegen/test/unittest/common:unittest"
+                "//commonlibrary/qrcode_generator/test/unittest/common:unittest"
             ]
         }
     }

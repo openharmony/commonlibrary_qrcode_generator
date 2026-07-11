@@ -23,7 +23,7 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
 ## Directory Structure
 
 ```
-/foundation/arkui/qrcode
+/commonlibrary/qrcode_generator
 ├── interfaces/kits/qrcode_generator.h    # QR Code Generator public interface
 ├── interfaces/innerkits/                 # QR Code Generator internal header files
 │       ├── qrcode_inner.h                # Internal data structure definition
@@ -66,7 +66,7 @@ Use the following command to build for different target platforms:
 **Build qrcode component for 32-bit ARM system**
 
 ```bash
-./build.sh --product-name {product_name} --ccache --build-target qrcodegenerator
+./build.sh --product-name {product_name} --ccache --build-target qrcode_generator
 ```
 
 > **Note:**
