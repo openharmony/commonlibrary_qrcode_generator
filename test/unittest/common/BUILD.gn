@@ -20,9 +20,9 @@ if (os_level != "mini") {
     visibility = [ ":*" ]
 
     include_dirs = [
-      "../../interfaces/innerkits",
-      "../../interfaces/kits",
-      "../../",
+      "../../../interfaces/innerkits",
+      "../../../interfaces/kits",
+      "../../../",
     ]
 
     cflags = [ "--coverage" ]
@@ -31,13 +31,13 @@ if (os_level != "mini") {
   }
 
   common_sources = [
-    "../../frameworks/qrcode_generator.cpp",
-    "../../frameworks/qrcode_item.cpp",
-    "../../frameworks/qrcode_mask.cpp",
-    "../../frameworks/qrcode_rscode.cpp",
-    "../../frameworks/qrcode_stream.cpp",
-    "../../frameworks/qrcode_string.cpp",
-    "../../frameworks/qrcode_version.cpp",
+    "../../../frameworks/qrcode_generator.cpp",
+    "../../../frameworks/qrcode_item.cpp",
+    "../../../frameworks/qrcode_mask.cpp",
+    "../../../frameworks/qrcode_rscode.cpp",
+    "../../../frameworks/qrcode_stream.cpp",
+    "../../../frameworks/qrcode_string.cpp",
+    "../../../frameworks/qrcode_version.cpp",
   ]
 
   ohos_unittest("QrcodeGeneratorTest") {
