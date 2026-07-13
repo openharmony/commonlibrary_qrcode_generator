@@ -20,9 +20,9 @@ if (os_level != "mini") {
     visibility = [ ":*" ]
 
     include_dirs = [
-      "../../interfaces/innerkits",
-      "../../interfaces/kits",
-      "../../",
+      "../../../interfaces/innerkits",
+      "../../../interfaces/kits",
+      "../../../",
     ]
 
     cflags = [ "--coverage" ]
