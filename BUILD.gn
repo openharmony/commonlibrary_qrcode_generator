@@ -21,14 +21,6 @@ config("libqrcodegen_config") {
   include_dirs = [ "./interfaces/kits" ]
 }
 
-config("qrcodegen_config") {
-  cflags = [
-    "-Wall",
-    "-fexceptions",
-  ]
-  cflags_cc = cflags
-}
-
 qrcodegen_sources = [
   "frameworks/qrcode_generator.cpp",
   "frameworks/qrcode_item.cpp",
@@ -67,7 +59,11 @@ if (defined(ohos_lite)) {
     external_deps = [ "bounds_checking_function:libsec_static" ]
     sources = qrcodegen_sources
     include_dirs = [ "./interfaces/innerkits" ]
-    configs = [ ":qrcodegen_config" ]
+    cflags = [
+      "-Wall",
+      "-fexceptions",
+    ]
+    cflags_cc = cflags
     public_configs = [ ":libqrcodegen_config" ]
   }
 }
