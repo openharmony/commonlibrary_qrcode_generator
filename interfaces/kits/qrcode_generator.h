@@ -16,7 +16,7 @@
 #ifndef __QRCODE_GENERATOR_H__
 #define __QRCODE_GENERATOR_H__
 #include <stdint.h>
-#include <cstddef>
+#include <stddef.h>
 
 #if defined(__cplusplus)
 extern "C" {
