@@ -56,7 +56,6 @@ if (defined(ohos_lite)) {
   }
 } else {
   ohos_static_library("qrcodegen") {
-    external_deps = [ "bounds_checking_function:libsec_static" ]
     sources = qrcodegen_sources
     include_dirs = [ "./interfaces/innerkits" ]
     cflags = [
@@ -65,5 +64,8 @@ if (defined(ohos_lite)) {
     ]
     cflags_cc = cflags
     public_configs = [ ":libqrcodegen_config" ]
+    part_name = "qrcode_generator"
+    subsystem_name = "commonlibrary"
+    external_deps = [ "bounds_checking_function:libsec_static" ]
   }
 }
