@@ -17,7 +17,6 @@
 #define __QRCODE_LIST_H__
 
 #include <stddef.h>
-#include <cstddef>
 
 #ifdef __cplusplus
 #if __cplusplus
