@@ -67,7 +67,7 @@ if (defined(ohos_lite)) {
     external_deps = [ "bounds_checking_function:libsec_static" ]
     sources = qrcodegen_sources
     include_dirs = [ "./interfaces/innerkits" ]
-    configs += [ ":qrcodegen_config" ]
+    configs = [ ":qrcodegen_config" ]
     public_configs = [ ":libqrcodegen_config" ]
   }
 }
