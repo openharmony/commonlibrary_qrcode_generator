@@ -26,6 +26,7 @@ config("qrcodegen_config") {
     "-Wall",
     "-fexceptions",
   ]
+  cflags_cc = cflags
 }
 
 qrcodegen_sources = [
@@ -38,13 +39,8 @@ qrcodegen_sources = [
   "frameworks/qrcode_rscode.cpp",
 ]
 
-qrcodegen_include_dirs = [
-  "./interfaces/innerkits",
-  "./interfaces/kits"
-]
-
 if (defined(ohos_lite)) {
-  lite_library("qrcode_generator_static") {
+  lite_library("qrcodegen") {
     if (ohos_kernel_type == "liteos_m") {
       target_type = "static_library"
       external_deps = [ "bounds_checking_function:libsec_static" ]
@@ -54,7 +50,7 @@ if (defined(ohos_lite)) {
     }
 
     sources = qrcodegen_sources
-    include_dirs = qrcodegen_include_dirs
+    include_dirs = [ "./interfaces/innerkits" ]
 
     if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
       cflags = [
@@ -67,11 +63,10 @@ if (defined(ohos_lite)) {
     public_configs = [ ":libqrcodegen_config" ]
   }
 } else {
-  static_library("qrcode_generator_static") {
+  ohos_static_library("qrcodegen") {
     external_deps = [ "bounds_checking_function:libsec_static" ]
     sources = qrcodegen_sources
-    include_dirs = qrcodegen_include_dirs
-
+    include_dirs = [ "./interfaces/innerkits" ]
     configs += [ ":qrcodegen_config" ]
     public_configs = [ ":libqrcodegen_config" ]
   }
