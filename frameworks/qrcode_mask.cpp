@@ -15,7 +15,7 @@
 
 #include "qrcode_mask.h"
 #include "securec.h"
-#include <cmath>
+#include <math.h>
 #include "qrcode_generator.h"
 #include "qrcode_version.h"
 #include "qrcode_item.h"

@@ -2,7 +2,7 @@
     "name": "@ohos/qrcode_generator",
     "description": "Generate qrcode",
     "description_cn": "二维码生成器",
-    "version": "3.1",
+    "version": "7.0",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
     "segment": {
@@ -32,7 +32,7 @@
             "sub_component": [],
             "inner_kits": [
                 {
-                    "name": "//commonlibrary/qrcode_generator:qrcode_generator_static",
+                    "name": "//commonlibrary/qrcode_generator:qrcodegen",
                     "header": {
                         "header_base": "//commonlibrary/qrcode_generator/interfaces/kits/",
                         "header_files": [

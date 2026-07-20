@@ -1,45 +1,45 @@
 # QR Code Generator
 
-## Introduction
+## Overview
 
-The QR Code Generator provides QR code generation capability for the OpenHarmony system. QR code is a widely-used encoding technology that has stood the test of market verification. It offers high information capacity, reliability, and strong confidentiality and anti-counterfeiting features. The QR Code Generator follows the [**ISO/IEC 18004:2015 standard**](https://www.iso.org/obp/ui/es/#iso:std:iso-iec:18004:ed-3:v1:en), supporting QR Code generation from Version 1 to Version 40, with flexible error correction level options.
+The QR code generator provides the QR code generation capability for OpenHarmony. QR code is a widely used encoding technology that has proven its worth in the market. It features large information capacity, high reliability, and strong confidentiality and anti-counterfeiting capabilities. The QR code generator is implemented in compliance with the [ISO/IEC 18004:2015 criterion](https://www.iso.org/obp/ui/es/#iso:std:iso-iec:18004:ed-3:v1:en), and supports the generation of QR codes from version 1 to version 40. It also provides flexible error correction levels.
 
--   **Encoding Mode Support:** The QR Code Generator supports Numeric mode, Alphanumeric mode, and Byte mode, meeting data encoding requirements for different scenarios.
--   **Error Correction Capability:** Depending on the error correction level, QR codes can be successfully decoded even when 25% to 30% of the codewords are obscured, ensuring the QR code can still be scanned even when partially damaged.
--   **Memory Management:** Provides custom memory allocation hooks, allowing developers to inject their own memory management functions for memory optimization on embedded devices.
--   **Form Support:** Supports three forms: standard, mini, and small. The standard form is used for the QRCode control, the mini form is used for the UIQrcode control, and the small form is not currently used by any control.
+-   **Encoding mode**: The QR code generator supports the numeric, alphanumeric, and byte modes, enabling data encoding in different scenarios.
+-   **Error correction**: Depending on the error correction level, the QR code can be successfully decoded even if 25% to 30% of the codewords are blocked. This ensures that the QR code can still be scanned even if it is partially damaged.
+-   **Memory management**: The generator provides a custom memory allocation hook, allowing you to inject your own memory management functions to optimize memory usage on embedded devices.
+-   **Form support**: The standard, mini, and small forms are supported. The **QRCode** component is used in the standard form, the **UIQrcode** component is used in the mini form, and no component is available in the small form.
 
 ## System Architecture
 
-**Figure 1**  QR Code Generator Architecture
+**Figure 1** Architecture of the QR code generator
 
-![](figures/qrcode_generator.png "QR Code Generator Architecture")
+![](figures/qrcode_generator.png "Architecture of the QR code generator")
 
--   **External Interface Layer:** Provides internal API interfaces for QR code generation, including image encoding and memory management.
+-   **External API layer**: Provides internal APIs for generating QR codes, including image encoding and memory management.
 
--   **Data Encoding:** Parses and encodes input character stream information, including String Parser, Version Selection, Data Segmentation, Code Assembly, RS Encoding, and Mask Pattern Selection modules.
+-   **Data encoding**: Parses and encodes the input character code stream information, including string parsing, version selection, data segmentation, assembling and encoding, RS coding, and mask selection.
 
 
-## Directory Structure
+## Directory
 
 ```
-/commonlibrary/qrcode_generator
-├── interfaces/kits/qrcode_generator.h    # QR Code Generator public interface
-├── interfaces/innerkits/                 # QR Code Generator internal header files
+/foundation/arkui/qrcode
+├── interfaces/kits/qrcode_generator.h    # External API of the QR code generator
+├── interfaces/innerkits/                 # Internal header file of the QR code generator
 │       ├── qrcode_inner.h                # Internal data structure definition
-│       ├── qrcode_version.h              # Version Selection
-│       ├── qrcode_stream.h               # Code Assembly
-│       ├── qrcode_rscode.h               # RS Encoding
-│       ├── qrcode_mask.h                 # Mask Pattern Selection
+│       ├── qrcode_version.h              # Version selection
+│       ├── qrcode_stream.h               # Assembly coding
+│       ├── qrcode_rscode.h               # RS coding
+│       ├── qrcode_mask.h                 # Mask selection
 │       ├── qrcode_item.h                 # Data segmentation
-│       └── qrcode_list.h                 # Linked list operations
-├── frameworks/                           # QR Code core implementation
-│       ├── qrcode_generator.cpp          # Generator main entry
-│       ├── qrcode_version.cpp            # Version Selection
+│       └── qrcode_list.h                 # Linked list operation
+├── frameworks/                           # Core implementation code of the QR code
+│       ├── qrcode_generator.cpp          # Main entry of the QR code generator
+│       ├── qrcode_version.cpp            # Version selection
 │       ├── qrcode_string.cpp             # String parsing
-│       ├── qrcode_stream.cpp             # Code Assembly
-│       ├── qrcode_rscode.cpp             # RS Encoding
-│       ├── qrcode_mask.cpp               # Mask Pattern Selection
+│       ├── qrcode_stream.cpp             # Assembly coding
+│       ├── qrcode_rscode.cpp             # RS coding
+│       ├── qrcode_mask.cpp               # Mask selection
 │       └── qrcode_item.cpp               # Data segmentation
 ├── test/unittest/common/                 # Unit test code
 │       ├── qrcode_generator_test.cpp
@@ -54,33 +54,33 @@ The QR Code Generator provides QR code generation capability for the OpenHarmony
 
 ## Constraints
 
-- The input text length is limited by version and error correction level. The actual usable length is calculated at runtime. For example: With H-level error correction, the input character code must not exceed the maximum data capacity of Version 40 (approximately 1852 bytes). QR codes cannot be generated if this length is exceeded.
-- After inputting character code stream, the QR Code Generator automatically selects the minimum Version that can contain the data. When Version is 40, the maximum size is 177×177 pixels (px).
-- Only square QR code output is supported. Other shapes (such as rectangles, circles, etc.) are not supported.
-- When using Byte mode, UTF-8 encoding is used by default.
+- The length of the input text is restricted by the version and error correction level. The actual available length is calculated at runtime. For example, with H-level error correction, the input character code cannot exceed the maximum data capacity of version 40 (about 1852 bytes). If the length exceeds this limit, the QR code cannot be generated.
+- After the character code stream is entered, the QR code generator automatically selects the minimum version that can contain the data for encoding. When the version is 40, the maximum dimensions are 177 × 177 pixels.
+- Only square QR codes are supported. Other shapes (such as rectangle and circle) are not supported.
+- When the byte mode is used, UTF-8 encoding is used by default.
 
-## Building
+## Compiling and Building
 
-Use the following command to build for different target platforms:
+Run the following commands to perform compilation based on the target platform:
 
-**Build qrcode component for 32-bit ARM system**
+**Compile the QR code component for the 32-bit ARM system**
 
 ```bash
 ./build.sh --product-name {product_name} --ccache --build-target qrcode_generator
 ```
 
-> **Note:**
-> `{product_name}` is the currently supported platform name, for example `rk3568`.
+> **NOTE**
+> **{product_name}** indicates the name of the supported platform, for example, **rk3568**. 
 
 ## Description
 
-The QR Code Generator provides public interfaces for system components or applications to generate QR codes.
+The QR code generator provides public APIs for system components or applications to generate QR codes.
 
 ### Data Structure Description
 
 #### QrcodeImage
 
-`QrcodeImage` is the output structure of QR code generation, defined as follows:
+**QrcodeImage** is the return structure of the QR code generation function. The definition is as follows:
 
 ```c
 typedef struct {
@@ -90,21 +90,20 @@ typedef struct {
 } QrcodeImage;
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| version | int32_t | QR code version actually used，The value ranges from 1 to 40. (auto-selected based on input data) |
-| width | uint32_t | Width of the generated QR code image in pixels（px） |
-| data | uint8_t* | Pointer to the image pixel data buffer |
+| Field| Type| Description|
+|------|------|------|
+| version | int32_t | QR code version for actual use. The value ranges from 1 to 40. (The version is automatically selected based on the input data.)|
+| width | uint32_t | Width of the generated QR code image, in pixels.|
+| data | uint8_t* | Pointer to the data buffer area of image pixels.|
 
-**Notes:**
+**NOTE**
+- The size of the **data** buffer is equal to **width** × **width** bytes.
+- Each byte represents a pixel value. The value **0** indicates white, and a non-zero value indicates black.
+- The memory allocated to **data** must be released by calling **QrcodeImageFree()**.
 
-- The `data` buffer size equals `width * width` bytes
-- Each byte represents a pixel value (0 for white, non-zero for black)
-- Memory allocated in `data` must be freed by calling `QrcodeImageFree()`
+### API Description
 
-### Interface Description
-
-<table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>Interface Name</p>
+<table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>Name</p>
 </th>
 <th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2222222222222"><a name="p2222222222222"></a><a name="p2222222222222"></a>Description</p>
 </th>
@@ -112,76 +111,75 @@ typedef struct {
 </thead>
 <tbody><tr id="row2222222222222"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3333333333333"><a name="p3333333333333"></a><a name="p3333333333333"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>Encodes a string into QR code data</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>Encodes the string code stream and outputs the QR code data.</p>
 </td>
 </tr>
 <tr id="row3333333333333"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5555555555555"><a name="p5555555555555"></a><a name="p5555555555555"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>Frees QR code data memory</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>Releases the memory of the QR code data.</p>
 </td>
 </tr>
 <tr id="row4444444444444"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7777777777777"><a name="p7777777777777"></a><a name="p7777777777777"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p8888888888888"><a name="p8888888888888"></a><a name="p8888888888888"></a>Initializes custom memory allocation hooks</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p8888888888888"><a name="p8888888888888"></a><a name="p8888888888888"></a>Initializes the custom memory allocation hook.</p>
 </td>
 </tr>
 </tbody>
 </table>
-
 #### Error Correction Level Description
 
 <table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>Level</p>
 </th>
-<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.2"><p id="p2222222222223"><a name="p2222222222223"></a><a name="p2222222222223"></a>Enum Value</p>
+<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.2"><p id="p2222222222223"><a name="p2222222222223"></a><a name="p2222222222223"></a>Value</p>
 </th>
-<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.3"><p id="p3333333333334"><a name="p3333333333334"></a><a name="p3333333333334"></a>Error Correction Capability</p>
+<th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.3"><p id="p3333333333334"><a name="p3333333333334"></a><a name="p3333333333334"></a>Correction Capability</p>
 </th>
-<th class="cellrowborder" valign="top" width="40%" id="mcps1.1.3.2.4"><p id="p4444444444445"><a name="p4444444444445"></a><a name="p4444444444445"></a>Applicable Scenario</p>
+<th class="cellrowborder" valign="top" width="40%" id="mcps1.1.3.2.4"><p id="p4444444444445"><a name="p4444444444445"></a><a name="p4444444444445"></a>Use Scenario</p>
 </th>
 </tr>
 </thead>
-<tbody><tr id="row6666666666666"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p7777777777778"><a name="p7777777777778"></a><a name="p7777777777778"></a>M (Medium)</p>
+<tbody><tr id="row6666666666666"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p7777777777778"><a name="p7777777777778"></a><a name="p7777777777778"></a>M (medium)</p>
 </td>
 <td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.2 "><p id="p8888888888889"><a name="p8888888888889"></a><a name="p8888888888889"></a>QRCODE_ECC_MEDIUM</p>
 </td>
-<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p9999999999999"><a name="p9999999999999"></a><a name="p9999999999999"></a>Approximately 15%</p>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p9999999999999"><a name="p9999999999999"></a><a name="p9999999999999"></a>About 15%</p>
 </td>
-<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p1010101010101"><a name="p1010101010101"></a><a name="p1010101010101"></a>General scenarios, balancing capacity and error correction</p>
+<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p1010101010101"><a name="p1010101010101"></a><a name="p1010101010101"></a>General-purpose scenario, balancing capacity and error correction capability.</p>
 </td>
 </tr>
-<tr id="row7777777777777"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p1111111111113"><a name="p1111111111113"></a><a name="p1111111111113"></a>H (High)</p>
+<tr id="row7777777777777"><td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.1 "><p id="p1111111111113"><a name="p1111111111113"></a><a name="p1111111111113"></a>H (high)</p>
 </td>
 <td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.2 "><p id="p2222222222224"><a name="p2222222222224"></a><a name="p2222222222224"></a>QRCODE_ECC_HIGH</p>
 </td>
-<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p3333333333335"><a name="p3333333333335"></a><a name="p3333333333335"></a>Approximately 30%</p>
+<td class="cellrowborder" valign="top" width="20%" headers="mcps1.1.3.2.3 "><p id="p3333333333335"><a name="p3333333333335"></a><a name="p3333333333335"></a>About 30%</p>
 </td>
-<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p4444444444446"><a name="p4444444444446"></a><a name="p4444444444446"></a>High reliability requirement scenarios (industrial, medical, etc.)</p>
+<td class="cellrowborder" valign="top" width="40%" headers="mcps1.1.3.2.4 "><p id="p4444444444446"><a name="p4444444444446"></a><a name="p4444444444446"></a>High-reliability scenarios (such industrial and healthcare).</p>
 </td>
 </tr>
 </tbody>
 </table>
 
-**Note:**
-- Higher error correction levels allow recovery of larger proportions of damage, but the available data capacity is reduced accordingly.
-- The error correction algorithm is implemented using Reed-Solomon (RS) codes.
+**NOTE**
+- A higher error correction level indicates a larger proportion of damage that can be recovered, but the available data capacity decreases accordingly.
+- The error correction algorithm uses Reed-Solomon (RS) code.
 
 
-### Usage
+### How to Use
 
-Call the QR Code Generator interface to encode text into a QR code image:
+Call the QR code generator API to encode the text into a QR code image.
 
 ```
 QrcodeImage *qrImage = QrcodeImageEncodeString("https://openharmony.cn", QRCODE_ECC_MEDIUM);
 if (qrImage != NULL) {
-    // Use qrImage->data to generate QR code image
-    // qrImage->width is the image width
-    // qrImage->version is the actual QR code version used
-    // qrImage data must be freed explicitly after use
+    // Use qrImage->data to generate a QR code image.
+    // qrImage->width is the image width.
+    // qrImage->version is the QR code version for actual use.
+    // The qrImage data needs to be released after being used.
     QrcodeImageFree(qrImage);
 }
 ```
 
-For custom memory allocation:
+To customize memory allocation:
 
 ```
 QrcodeMemHooks hooks = {
