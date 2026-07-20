@@ -14,7 +14,7 @@
  */
 
 #include "qrcode_generator.h"
-#include <cstdlib>
+#include <stdlib.h>
 #include "qrcode_version.h"
 #include "qrcode_stream.h"
 #include "qrcode_item.h"
