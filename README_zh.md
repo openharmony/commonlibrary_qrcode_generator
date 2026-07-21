@@ -15,7 +15,7 @@
 
 ![](figures/zh-cn_qrcode_generator.png "二维码生成器架构图")
 
--   **对外接口层：** 提供二维码生成的内部API接口，包括图像编码和内存管理。
+-   **对外接口层：** 提供二维码生成的内部API接口，包括图像编码、内存管理和返回给定坐标的颜色（浅色为false、深色为true）。
 
 -   **数据编码：** 对输入字符码流信息进行解析编码，包括字符串解析、版本选择、数据分段、组装编码、RS纠错编码、掩码选择模块。
 
@@ -103,29 +103,35 @@ typedef struct {
 
 ### 接口说明
 
-<table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>接口名</p>
+<table><thead align="left"><tr id="row1"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1"><a name="p1"></a><a name="p1"></a>接口名</p>
 </th>
-<th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2222222222222"><a name="p2222222222222"></a><a name="p2222222222222"></a>说明</p>
+<th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2"><a name="p2"></a><a name="p2"></a>说明</p>
 </th>
 </tr>
 </thead>
-<tbody><tr id="row2222222222222"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3333333333333"><a name="p3333333333333"></a><a name="p3333333333333"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
+<tbody><tr id="row2"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3"><a name="p3"></a><a name="p3"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>对字符串码流进行编码，输出二维码数据</p>
-</td>
-</tr>
-<tr id="row3333333333333"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5555555555555"><a name="p5555555555555"></a><a name="p5555555555555"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
-</td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>释放二维码数据内存</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4"><a name="p4"></a><a name="p4"></a>对字符串码流进行编码，输出二维码数据</p>
 </td>
 </tr>
-<tr id="row4444444444444"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7777777777777"><a name="p7777777777777"></a><a name="p7777777777777"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
+<tr id="row3"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5"><a name="p5"></a><a name="p5"></a>bool QrcodeGetModule(const QrcodeImage *qrCode, int32_t xPos, int32_t yPos)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p8888888888888"><a name="p8888888888888"></a><a name="p8888888888888"></a>初始化自定义内存分配钩子</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6"><a name="p6"></a><a name="p6"></a>返回给定坐标处模块（像素）的颜色，浅色为 false，深色为 true。左上角坐标为 (x=0, y=0)。如果给定坐标超出范围，则返回 false（浅色）</p>
+</td>
+</tr>
+<tr id="row4"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7"><a name="p7"></a><a name="p7"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
+</td>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p8"><a name="p8"></a><a name="p8"></a>释放二维码数据内存</p>
+</td>
+</tr>
+<tr id="row5"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p9"><a name="p9"></a><a name="p9"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
+</td>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p10"><a name="p10"></a><a name="p10"></a>初始化自定义内存分配钩子</p>
 </td>
 </tr>
 </tbody>
 </table>
+
 #### 纠错等级说明
 
 <table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>等级</p>
