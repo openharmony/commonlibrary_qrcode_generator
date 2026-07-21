@@ -424,3 +424,22 @@ QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)
 
     return qrImg;
 }
+
+bool QrcodeGetModule(const QrcodeImage *qrCode, int32_t xPos, int32_t yPos)
+{
+    if (qrCode == nullptr) {
+        return false;
+    }
+
+    uint32_t qrWidth = qrCode->width;
+    if ((qrWidth == 0) || (qrCode->data == nullptr)) {
+        return false;
+    }
+
+    if ((xPos < 0) || (xPos >= qrWidth) || (yPos < 0) || (yPos >= qrWidth)) {
+        return false;
+    }
+
+    uint8_t* sourceData = qrCode->data;
+    return (*(sourceData + yPos * qrWidth + xPos) & 1);
+}

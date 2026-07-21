@@ -15,7 +15,7 @@ The QR code generator provides the QR code generation capability for OpenHarmony
 
 ![](figures/qrcode_generator.png "Architecture of the QR code generator")
 
--   **External API layer**: Provides internal APIs for generating QR codes, including image encoding and memory management.
+-   **External API layer**: Provides internal APIs for generating QR codes, including image encoding and memory management and returns the color of the module (pixel) at the given coordinates.
 
 -   **Data encoding**: Parses and encodes the input character code stream information, including string parsing, version selection, data segmentation, assembling and encoding, RS coding, and mask selection.
 
@@ -103,29 +103,35 @@ typedef struct {
 
 ### API Description
 
-<table><thead align="left"><tr id="row1111111111111"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1111111111111"><a name="p1111111111111"></a><a name="p1111111111111"></a>Name</p>
+<table><thead align="left"><tr id="row1"><th class="cellrowborder" valign="top" width="50.22%" id="mcps1.1.3.1.1"><p id="p1"><a name="p1"></a><a name="p1"></a>Name</p>
 </th>
-<th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2222222222222"><a name="p2222222222222"></a><a name="p2222222222222"></a>Description</p>
+<th class="cellrowborder" valign="top" width="49.78%" id="mcps1.1.3.1.2"><p id="p2"><a name="p2"></a><a name="p2"></a>Description</p>
 </th>
 </tr>
 </thead>
-<tbody><tr id="row2222222222222"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3333333333333"><a name="p3333333333333"></a><a name="p3333333333333"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
+<tbody><tr id="row2"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p3"><a name="p3"></a><a name="p3"></a>QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4444444444444"><a name="p4444444444444"></a><a name="p4444444444444"></a>Encodes the string code stream and outputs the QR code data.</p>
-</td>
-</tr>
-<tr id="row3333333333333"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5555555555555"><a name="p5555555555555"></a><a name="p5555555555555"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
-</td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6666666666666"><a name="p6666666666666"></a><a name="p6666666666666"></a>Releases the memory of the QR code data.</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p4"><a name="p4"></a><a name="p4"></a>Encodes the string code stream and outputs the QR code data.</p>
 </td>
 </tr>
-<tr id="row4444444444444"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7777777777777"><a name="p7777777777777"></a><a name="p7777777777777"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
+<tr id="row3"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p5"><a name="p5"></a><a name="p5"></a>bool QrcodeGetModule(const QrcodeImage *qrCode, int32_t xPos, int32_t yPos)</p>
 </td>
-<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p8888888888888"><a name="p8888888888888"></a><a name="p8888888888888"></a>Initializes the custom memory allocation hook.</p>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p6"><a name="p6"></a><a name="p6"></a>Returns the color of the module (pixel) at the given coordinates, which is false, for light or true for dark. The top left corner has the coordinates (x=0, y=0).If the given coordinates are out of bounds, then false (light) is returned.</p>
+</td>
+</tr>
+<tr id="row4"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p7"><a name="p7"></a><a name="p7"></a>void QrcodeImageFree(QrcodeImage *qrImage)</p>
+</td>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p8"><a name="p8"></a><a name="p8"></a>Releases the memory of the QR code data.</p>
+</td>
+</tr>
+<tr id="row5"><td class="cellrowborder" valign="top" width="50.22%" headers="mcps1.1.3.1.1 "><p id="p9"><a name="p9"></a><a name="p9"></a>void QrcodeMemInitHooks(const QrcodeMemHooks *hooks)</p>
+</td>
+<td class="cellrowborder" valign="top" width="49.78%" headers="mcps1.1.3.1.2 "><p id="p10"><a name="p10"></a><a name="p10"></a>Initializes the custom memory allocation hook.</p>
 </td>
 </tr>
 </tbody>
 </table>
+
 #### Error Correction Level Description
 
 <table><thead align="left"><tr id="row5555555555555"><th class="cellrowborder" valign="top" width="20%" id="mcps1.1.3.2.1"><p id="p1111111111112"><a name="p1111111111112"></a><a name="p1111111111112"></a>Level</p>

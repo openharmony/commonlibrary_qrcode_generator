@@ -43,6 +43,8 @@ typedef struct {
 
 QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc);
 
+bool QrcodeGetModule(const QrcodeImage *qrCode, int32_t xPos, int32_t yPos);
+
 void QrcodeImageFree(QrcodeImage *qrImage);
 
 void QrcodeMemInitHooks(const QrcodeMemHooks *hooks);
