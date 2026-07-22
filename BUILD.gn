@@ -66,6 +66,10 @@ if (defined(ohos_lite)) {
     public_configs = [ ":libqrcodegen_config" ]
     part_name = "qrcode_generator"
     subsystem_name = "commonlibrary"
-    external_deps = [ "bounds_checking_function:libsec_static" ]
+    if (is_arkui_x) {
+      deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    } else {
+      external_deps = [ "bounds_checking_function:libsec_static" ]
+    }
   }
 }
