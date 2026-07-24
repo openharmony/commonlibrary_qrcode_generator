@@ -67,9 +67,9 @@ if (defined(ohos_lite)) {
     part_name = "qrcode_generator"
     subsystem_name = "commonlibrary"
     if (is_arkui_x) {
-      deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+      deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
     } else {
-      external_deps = [ "bounds_checking_function:libsec_static" ]
+      external_deps = [ "bounds_checking_function:libsec_shared" ]
     }
   }
 }
