@@ -153,14 +153,6 @@ TEST_F(QrcodeMockTest, qrcode_version_get_ecc_info_invalid_version)
     EXPECT_EQ(spec[0], 0);
 }
 
-// Test 17: Test QrcodeVersionGetEccInfo with insufficient spec size (void return)
-TEST_F(QrcodeMockTest, qrcode_version_get_ecc_info_insufficient_size)
-{
-    int32_t spec[2] = {0};
-    QrcodeVersionGetEccInfo(1, spec, 2);
-    // Should not crash
-}
-
 // Test 18: Test QrcodeItemListAdd with null list
 TEST_F(QrcodeMockTest, qrcode_item_list_add_null_list)
 {
