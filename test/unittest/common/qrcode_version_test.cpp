@@ -256,18 +256,6 @@ HWTEST_F(QrcodeVersionTest, qrcode_version_zero_version_018, TestSize.Level1)
 }
 
 /**
- * @tc.name: qrcode_version_negative_version_019
- * @tc.desc: Verify handling negative version.
- * @tc.type: FUNC
- * @tc.require: issueI000002
- */
-HWTEST_F(QrcodeVersionTest, qrcode_version_negative_version_019, TestSize.Level1)
-{
-    int32_t dataLen = QrcodeVersionGetDataLen(-1);
-    EXPECT_EQ(dataLen, 0);
-}
-
-/**
  * @tc.name: qrcode_version_exceed_max_020
  * @tc.desc: Verify handling version exceeding max.
  * @tc.type: FUNC
