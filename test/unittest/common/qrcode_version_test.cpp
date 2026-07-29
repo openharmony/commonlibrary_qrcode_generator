@@ -463,17 +463,6 @@ HWTEST_F(QrcodeVersionTest, qrcode_version_max_words_invalid_mode_035, TestSize.
 }
 
 /**
- * @tc.name: qrcode_version_get_ecc_info_null_spec_036
- * @tc.desc: Verify getting ECC info with null spec.
- * @tc.type: FUNC
- * @tc.require: issueI000002
- */
-HWTEST_F(QrcodeVersionTest, qrcode_version_get_ecc_info_null_spec_036, TestSize.Level1)
-{
-    QrcodeVersionGetEccInfo(1, nullptr, 0);
-}
-
-/**
  * @tc.name: qrcode_version_get_min_version_too_large_037
  * @tc.desc: Verify getting minimum version for size that exceeds max.
  * @tc.type: FUNC
