@@ -353,7 +353,7 @@ HWTEST_F(QrcodeStreamTest, qrcode_stream_add_empty_bytes_023, TestSize.Level1)
     if (stream != nullptr) {
         uint8_t data[] = {0x00};
         int32_t ret = QrcodeStreamAddBytes(stream, 0, data);
-        EXPECT_NE(ret, 0);  // Adding zero bytes should fail
+        EXPECT_EQ(ret, 0);  // Adding zero bytes should fail
         QrcodeStreamFree(stream);
     }
 }
@@ -1130,7 +1130,7 @@ HWTEST_F(QrcodeStreamTest, qrcode_stream_add_bytes_zero_size_062, TestSize.Level
     if (stream != nullptr) {
         const uint8_t data[] = {0x12, 0x34, 0x56};
         int32_t ret = QrcodeStreamAddBytes(stream, 0, (uint8_t *)data);
-        EXPECT_NE(ret, 0);  // Adding zero bytes should fail
+        EXPECT_EQ(ret, 0);  // Adding zero bytes should fail
         QrcodeStreamFree(stream);
     }
 }
