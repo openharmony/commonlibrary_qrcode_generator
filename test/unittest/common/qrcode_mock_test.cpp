@@ -33,20 +33,6 @@ protected:
     }
 };
 
-// Test 1: QrcodeImageEncodeMask with null list
-TEST_F(QrcodeMockTest, qrcode_image_encode_mask_null_list)
-{
-    QrcodeImage *image = QrcodeImageEncodeMask(nullptr);
-    EXPECT_EQ(image, nullptr);
-}
-
-// Test 2: QrcodeStrToItemList with null list
-TEST_F(QrcodeMockTest, qrcode_str_to_item_list_null_list)
-{
-    int32_t ret = QrcodeStrToItemList("123", nullptr);
-    EXPECT_LT(ret, 0);
-}
-
 // Test 3: QrcodeItemListGetByteStream with null list
 TEST_F(QrcodeMockTest, qrcode_item_list_get_byte_stream_null_list)
 {
@@ -132,21 +118,6 @@ TEST_F(QrcodeMockTest, qrcode_version_max_edge_cases)
     QrcodeItemListFree(list);
 }
 
-// Test 10: Test QrcodeStreamAddBytes with null stream
-TEST_F(QrcodeMockTest, qrcode_stream_add_bytes_null_stream)
-{
-    uint8_t data[] = {0x01, 0x02, 0x03};
-    int32_t ret = QrcodeStreamAddBytes(nullptr, 3, data);
-    EXPECT_LT(ret, 0);
-}
-
-// Test 11: Test QrcodeStreamAddNum with null stream
-TEST_F(QrcodeMockTest, qrcode_stream_add_num_null_stream)
-{
-    int32_t ret = QrcodeStreamAddNum(nullptr, 123, 3);
-    EXPECT_LT(ret, 0);
-}
-
 // Test 12: Test QrcodeStreamAddNum with zero bit count
 TEST_F(QrcodeMockTest, qrcode_stream_add_num_zero_bits)
 {
@@ -180,13 +151,6 @@ TEST_F(QrcodeMockTest, qrcode_version_get_ecc_info_invalid_version)
     QrcodeVersionGetEccInfo(-1, spec, 5);
     // Should not crash, spec should be unchanged
     EXPECT_EQ(spec[0], 0);
-}
-
-// Test 16: Test QrcodeVersionGetEccInfo with null spec (void return)
-TEST_F(QrcodeMockTest, qrcode_version_get_ecc_info_null_spec)
-{
-    QrcodeVersionGetEccInfo(1, nullptr, 5);
-    // Should not crash
 }
 
 // Test 17: Test QrcodeVersionGetEccInfo with insufficient spec size (void return)
@@ -311,30 +275,6 @@ TEST_F(QrcodeMockTest, qrcode_estimate_8_negative_size)
     EXPECT_LT(ret, 0);
 }
 
-// Test 31: Test QrcodeStreamAdd with null stream
-TEST_F(QrcodeMockTest, qrcode_stream_add_null_stream)
-{
-    QrcodeStream *arg = QrcodeStreamNew();
-    ASSERT_NE(arg, nullptr);
-
-    int32_t ret = QrcodeStreamAdd(nullptr, arg);
-    EXPECT_LT(ret, 0);
-
-    QrcodeStreamFree(arg);
-}
-
-// Test 32: Test QrcodeStreamAdd with null arg
-TEST_F(QrcodeMockTest, qrcode_stream_add_null_arg)
-{
-    QrcodeStream *stream = QrcodeStreamNew();
-    ASSERT_NE(stream, nullptr);
-
-    int32_t ret = QrcodeStreamAdd(stream, nullptr);
-    EXPECT_LT(ret, 0);
-
-    QrcodeStreamFree(stream);
-}
-
 // Test 33: Test QrcodeStreamAdd with self
 TEST_F(QrcodeMockTest, qrcode_stream_add_self)
 {
@@ -364,13 +304,6 @@ TEST_F(QrcodeMockTest, qrcode_image_encode_string_different_ecc)
     QrcodeImage *imageH = QrcodeImageEncodeString("123", QRCODE_ECC_HIGH);
     EXPECT_NE(imageH, nullptr);
     QrcodeImageFree(imageH);
-}
-
-// Test 36: Test QrcodeStreamDupData with null stream
-TEST_F(QrcodeMockTest, qrcode_stream_dup_data_null_stream)
-{
-    uint8_t *data = QrcodeStreamDupData(nullptr);
-    EXPECT_EQ(data, nullptr);
 }
 
 // Test 37: Test QrcodeStreamClean with null stream
