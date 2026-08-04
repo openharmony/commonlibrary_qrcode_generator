@@ -403,7 +403,7 @@ EXIT:
 
 QrcodeImage *QrcodeImageEncodeString(const char *text, QRCODE_ECC qrEcc)
 {
-    if ((text == nullptr) || (text[0] == '\0')) {
+    if (text == nullptr) {
         return nullptr;
     }
 
