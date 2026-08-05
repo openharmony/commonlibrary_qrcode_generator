@@ -394,9 +394,6 @@ ABORT:
 static int32_t QrcodeItemListFillStream(QrcodeStream *stream, QrcodeItemList *list)
 {
     QrcodeItem *pos = nullptr;
-    if (QrCodeListEmpty(&list->list)) {
-        return -1;
-    }
     QrcodeDlListIter iter;
     QrcodeDlListIterInitTyped(&iter, &list->list, &((QrcodeItem *)0)->next);
     while (QrcodeDlListIterHasNext(&iter)) {
@@ -508,7 +505,7 @@ DONE:
 
 static QrcodeStream *QRItemListMergeBitStream(QrcodeItemList *list)
 {
-    if ((list == nullptr) || QrCodeListEmpty(&list->list)) {
+    if (list == nullptr) {
         return nullptr;
     }
     QrcodeStream *stream = QrcodeStreamNew();
