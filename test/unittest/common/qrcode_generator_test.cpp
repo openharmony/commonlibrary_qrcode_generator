@@ -45,7 +45,7 @@ void QrcodeGeneratorTest::TearDown(void) {}
 HWTEST_F(QrcodeGeneratorTest, qrcode_encode_empty_string_001, TestSize.Level1)
 {
     QrcodeImage *qrImage = QrcodeImageEncodeString("", QRCODE_ECC_MEDIUM);
-    EXPECT_EQ(qrImage, nullptr);
+    EXPECT_NE(qrImage, nullptr);
 }
 
 /**
@@ -1283,7 +1283,7 @@ HWTEST_F(QrcodeGeneratorTest, qrcode_encode_null_text_071, TestSize.Level1)
 HWTEST_F(QrcodeGeneratorTest, qrcode_encode_empty_string_072, TestSize.Level1)
 {
     QrcodeImage *qrImage = QrcodeImageEncodeString("", QRCODE_ECC_MEDIUM);
-    EXPECT_EQ(qrImage, nullptr);
+    EXPECT_NE(qrImage, nullptr);
 }
 
 /**

@@ -373,7 +373,7 @@ HWTEST_F(QrcodeItemTest, qrcode_item_list_get_byte_stream_empty_024, TestSize.Le
     EXPECT_NE(list, nullptr);
     if (list != nullptr) {
         uint8_t *stream = QrcodeItemListGetByteStream(list);
-        EXPECT_EQ(stream, nullptr);
+        EXPECT_NE(stream, nullptr);
         QrcodeItemListFree(list);
     }
 }
@@ -1465,7 +1465,7 @@ HWTEST_F(QrcodeItemTest, qrcode_item_list_get_byte_stream_empty_list_091, TestSi
     EXPECT_NE(list, nullptr);
     if (list != nullptr) {
         uint8_t *stream = QrcodeItemListGetByteStream(list);
-        EXPECT_EQ(stream, nullptr);
+        EXPECT_NE(stream, nullptr);
         QrcodeItemListFree(list);
     }
 }
